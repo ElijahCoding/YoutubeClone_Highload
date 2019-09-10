@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Channel;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,7 +19,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model) {
-            $model->{$model->getKey} = Str::uuid();
+            $model->{$model->getKeyName()} = Str::uuid();
         });
     }
 
@@ -48,4 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function channel()
+    {
+        return $this->hasOne(Channel::class);
+    }
 }
