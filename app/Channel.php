@@ -16,6 +16,14 @@ class Channel extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function editable()
+    {
+        // i know it's shitty solution, i'll refactor it
+        if (! auth()->check()) return false;
+        
+        return $this->user_id === auth()->id();
+    }
+
     public function image()
     {
         if ($this->media->first()) {

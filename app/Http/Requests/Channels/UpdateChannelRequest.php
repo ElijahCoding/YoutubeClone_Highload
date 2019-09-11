@@ -24,7 +24,9 @@ class UpdateChannelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'image' => 'image',
+            'description' => 'max:1000'
         ];
     }
 }
