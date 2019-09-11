@@ -26,8 +26,15 @@
                                 </div>
                                 <img src="{{ $channel->image() }}" alt="">
                             </div>
+                        </div>
 
-
+                        <div class="form-group">
+                            <h4 class="text-center">
+                                {{ $channel->name }}
+                            </h4>
+                            <p class="text-center">
+                                {{ $channel->description }}
+                            </p>
                         </div>
 
                         <input onchange="document.getElementById('update-channel-form').submit()" style="display: none;"  id="image" type="file" name="image">
@@ -36,8 +43,7 @@
                             <label for="name" class="form-control-label">
                                 Name
                             </label>
-
-                            <input type="text" class="form-control" name="id" name="name" value="{{ $channel->name }}">
+                            <input id="name" name="name" value="{{ $channel->name }}" type="text" class="form-control">
                         </div>
 
                         <div class="form-group">
