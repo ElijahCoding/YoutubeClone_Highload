@@ -41,8 +41,9 @@
                             </p>
 
                             <div class="text-center">
-                                <subscribe-button inline-template>
-                                    <button @click="toggleSubscription" class="btn btn-danger">
+                                <subscribe-button :subscriptions="{{ $channel->subscriptions }}" inline-template>
+                                    <button @click="toggleSubscription" class="btn btn-danger"
+                                            >
                                         Unsubscribe 7k
                                     </button>
                                 </subscribe-button>

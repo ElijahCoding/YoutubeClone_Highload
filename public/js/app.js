@@ -32034,8 +32034,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 Vue.component('subscribe-button', {
+  props: {
+    subscriptions: {
+      type: Array,
+      required: true,
+      "default": function _default() {
+        return [];
+      }
+    }
+  },
   methods: {
-    toggleSubscription: function toggleSubscription() {}
+    toggleSubscription: function toggleSubscription() {
+      if (!__auth()) {
+        alert('Please login to subscribe.');
+      }
+
+      console.log('working');
+    }
   }
 });
 

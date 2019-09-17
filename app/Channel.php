@@ -2,10 +2,11 @@
 
 namespace App;
 
-use App\{Model, User};
+use App\User;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use App\Subscription;
 
 class Channel extends Model implements HasMedia
 {
@@ -20,7 +21,7 @@ class Channel extends Model implements HasMedia
     {
         // i know it's shitty solution, i'll refactor it
         if (! auth()->check()) return false;
-        
+
         return $this->user_id === auth()->id();
     }
 
@@ -37,5 +38,10 @@ class Channel extends Model implements HasMedia
         $this->addMediaConversion('thumb')
               ->width(100)
               ->height(100);
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
     }
 }
