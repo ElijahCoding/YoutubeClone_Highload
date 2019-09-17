@@ -1,8 +1,6 @@
 <?php
 
-namespace App;
-
-use App\Model;
+namespace Laratube;
 
 class Subscription extends Model
 {

@@ -5,8 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between">
                     {{ $channel->name }}
+
+                    <a href="{{ route('channel.upload', $channel->id) }}">Upload Videos</a>
                 </div>
 
                 <div class="card-body">
@@ -41,18 +43,13 @@
                             </p>
 
                             <div class="text-center">
-                                <subscribe-button :subscriptions="{{ $channel->subscriptions }}" inline-template>
-                                    <button @click="toggleSubscription" class="btn btn-danger"
-                                            >
-                                        Unsubscribe 7k
-                                    </button>
-                                </subscribe-button>
+                                <subscribe-button :channel="{{ $channel }}" :initial-subscriptions="{{ $channel->subscriptions }}" />
                             </div>
                         </div>
 
                         @if($channel->editable())
                             <input onchange="document.getElementById('update-channel-form').submit()" style="display: none;"  id="image" type="file" name="image">
-
+                            
                             <div class="form-group">
                                 <label for="name" class="form-control-label">
                                     Name
@@ -85,6 +82,54 @@
                     @if($channel->editable())
                     </form>
                     @endif
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Videos
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table">
+                        <thead>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Views</th>
+                            <th>Status</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            @foreach($videos as $video)
+                                <tr>
+                                    <td>
+                                        <img width="40px" height="40px" src="{{ $video->thumbnail }}" alt="">
+                                    </td>
+                                    <td>
+                                        {{ $video->title }}
+                                    </td>
+                                    <td>
+                                        {{ $video->views }}
+                                    </td>
+                                    <td>
+                                        {{ $video->percentage === 100 ? 'Live' : 'Processing' }}
+                                    </td>
+                                    <td>
+                                        @if($video->percentage === 100)
+                                            <a href="{{ route('videos.show', $video->id) }}" class="btn btn-sm btn-info">
+                                                View
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="row justify-content-center">
+                        {{ $videos->links() }}
+                    </div>
                 </div>
             </div>
         </div>

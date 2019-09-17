@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Laratube\Http\Controllers;
 
-use App\Channel;
 use Illuminate\Http\Request;
-use App\Http\Requests\Channels\UpdateChannelRequest;
+use Laratube\Channel;
+use Laratube\Http\Requests\Channels\UpdateChannelRequest;
 
 class ChannelController extends Controller
 {
@@ -52,7 +52,9 @@ class ChannelController extends Controller
      */
     public function show(Channel $channel)
     {
-        return view('channels.show', compact('channel'));
+        $videos = $channel->videos()->paginate(5);
+
+        return view('channels.show', compact('channel', 'videos'));
     }
 
     /**
@@ -79,7 +81,7 @@ class ChannelController extends Controller
             $channel->clearMediaCollection('images');
 
             $channel->addMediaFromRequest('image')
-                    ->toMediaCollection('images');
+                ->toMediaCollection('images');
         }
 
         $channel->update([
@@ -87,7 +89,7 @@ class ChannelController extends Controller
             'description' => $request->description
         ]);
 
-        return back();
+        return redirect()->back();
     }
 
     /**

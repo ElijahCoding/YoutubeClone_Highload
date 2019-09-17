@@ -1,9 +1,8 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
-use App\{Channel, User};
 use Faker\Generator as Faker;
+use Laratube\Channel;
+use Laratube\User;
 
 $factory->define(Channel::class, function (Faker $faker) {
     return [

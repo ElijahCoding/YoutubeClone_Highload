@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Channels;
+namespace Laratube\Http\Requests\Channels;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class UpdateChannelRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->channel->user_id === auth()->id();
+        return $this->channel->user_id === auth()->user()->id;
     }
 
     /**
